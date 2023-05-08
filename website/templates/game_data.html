@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Data</title>
+    <style>
+        .gridcontainer {
+            border: 2px solid transparent;
+            border-width: 5px;
+            padding: 10px
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        .container {
+            border: 2px solid transparent;
+            border-image: linear-gradient(to bottom right, #f6d365, #fda085) 1;
+            border-width: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            max-width: 300px !important;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 300px;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 4px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        th.team {
+            text-align: left;
+        }
+        td.score {
+            font-weight: bold;
+        }
+        td.green {
+            background-color: #7fff7f;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            justify-content: center;
+            grid-gap: 20px;
+            margin: 0 auto;
+            max-width: 80%;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .navbar button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        {% for i in range(1, 19) %}
+        <button onclick="window.location.href='/week{{ i }}'">Week {{ i }}</button>
+        {% endfor %}
+    </div>
+    <div class="gridcontainer">
+    <div class="grid">
+        {% for game in games %}
+        <div class="container">
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Predicted Score</th>
+                    <th>Predicted Spread</th>
+                    <th>Real Score</th>
+                    <th>Game Spread</th>
+                </tr>
+                <tr>
+                    <td class="team">{{ game[1] }}</td>
+                    <td class="score {% if game[3]>game[4] %}green{% endif %}">{{ '{:.1f}'.format(game[3]) }}</td>
+                    <td>{% if game[4]-game[3]>0 %}+{% endif %}{{ '{:.1f}'.format(game[4]-game[3]) }}</td>
+                    <td class="score {% if game[6]>game[7] %}green{% endif %}">{{ game[6] }}</td>
+                    <td>{% if game[8]>0 %}+{% endif %}{{ game[8] }}</td>
+                </tr>
+                <tr>
+                    <td class="team">{{ game[2] }}</td>
+                    <td class="score {% if game[4]>game[3] %}green{% endif %}">{{ '{:.1f}'.format(game[4]) }}</td>
+                    <td></td>
+                    <td class="score {% if game[7]>game[6] %}green{% endif %}">{{ game[7] }}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
