@@ -29,4 +29,4 @@ if __name__ == '__main__':
     # parser = argparse.ArgumentParser()
     # parser.add_argument('--port', type=int, default=8000, help='Port number to use for Flask app')
     # args = parser.parse_args()
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
